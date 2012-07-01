@@ -1,0 +1,15 @@
+
+
+#content{
+	width: 750px;	
+	margin: 0px auto;
+	background-color: #458B00;
+	height: 500px;
+}
+#rightFrame{
+	float: right;
+}
+
+#leftFrame{
+	float: left;
+}
