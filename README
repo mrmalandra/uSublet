@@ -1,0 +1,7 @@
+uSublet OPIM416 Summer 2012 Course
+==================================
+
+Source code for the subletting website built in google app engine.
+Built in Python's webapp2 and MVC framework
+Currently uses js and css files from alternative locations on the
+web

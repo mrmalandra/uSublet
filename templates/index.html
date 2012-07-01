@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<p> You can create listings <a href="/create">here.</a> </p>
+{% for listing in listings %}
+<p class="sticky taped" style="width: 250px;"> 
+    <big>Lister : {{ listing.lister }}</big><br />
+    Location : {{ listing.street_name }} {{ listing.city_name }}, {{ listing.state_name}} <br />
+    Start Date: {{ listing.start_date.strftime('%Y-%m-%d')  }} <br/>
+	End Date: {{ listing.end_date.strftime('%Y-%m-%d')  }} <br/>
+	Rooms: {{ listing.number_of_rooms  }} <br/>
+	Bathrooms: {{ listing.number_of_bathrooms  }} <br/>
+	Pets Allowed?: {{ listing.pets_allowed}} <br/>
+	Smoking Allowed?: {{ listing.smoking_allowed  }} <br/>
+	AC?: {{ listing.air_conditioning  }} <br/>
+    Add'l Info: {{ listing.description }} 
+    (<a href ="edit/{{ listing.key().id() }}">edit </a>)
+        <br />     
+{% endfor %}
+</p>
+{% endblock content %}

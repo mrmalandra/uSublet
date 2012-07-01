@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% block content %}
+
+<form action="" method="post">
+		<div class="right-frame">	
+			<h1>Your Housing Preferences</h1>
+			<table>
+				<tr>
+					<!--USER ACCOUNTS -->
+					<td>
+						<p><b> IMPLEMENT USER ACCOUNTS </b></p>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="lister">What's your Name?</label>
+					</td>
+					<td>
+						<input type="text" name="lister" id="id_lister" required/>
+					</td>					
+					<!--END USER ACCOUNT -->
+					<!-- LOCATION DETAIL-->
+				</tr>
+				<tr>
+					<td>
+						<p><b> IMPLEMENT GOOGLE MAPS </b></p>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="street_name">What is your Street Name</label>
+					</td>
+					<td>
+						<input type="text" name="street_name" id="id_street_name" required/><br/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="state_name">What City?</label>
+					</td>
+					<td>
+						<input type="text" name="city_name" id="id_city_name" required/><br/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="state_name">What State?</label>
+					</td>
+					<td>
+						<input type="text" name="state_name" id="id_state_name" required/><br/>
+					</td>
+				</tr>
+				<!-- END LOCATION DETAIL-->
+				<!-- LISTING DETAIL-->
+				<tr>
+					<td>
+						<label for="start_date">When is the start date?</label>			
+					</td>
+					<td>
+						<input type="text" name="start_date" id="id_start_date" required/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="end_date">When is the end date?</label>
+					</td>
+					<td>
+						<input type="text" name="end_date" id="id_end_date" required/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="price">Asking Price</label>
+					</td>
+					<td>
+						<input type="text" name="price" id="id_price" value = "0" required/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="number_of_rooms">Number of Rooms: </label>
+						<input type="text" name="number_of_rooms" id="id_number_of_rooms" style="border:0; color:#f6931f; font-weight:bold;" disabled = "disabled" value = "1" required/><br/>
+						<div id="number_of_rooms_slider"></div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="number_of_bathrooms">Number of Bathrooms: </label>
+						<input type="text" name="number_of_bathrooms" id="id_number_of_bathrooms" style="border:0; color:#f6931f; font-weight:bold;" disabled = "disabled" value = "1" required/><br/>
+						<div id="number_of_bathrooms_slider"></div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="pets_allowed">Pets Allowed?</label>
+					</td>
+					<td>
+						<input type="radio" name="pets_allowed" value="No" id="pets_group_1" checked/>No	
+						<input type="radio" name="pets_allowed" value="Yes" id="pets_group_2"/>Yes			
+					</td>
+				</tr>
+				<tr>			
+					<td>
+						<label for="air_conditioning">Air Conditioning? </label>
+					</td>
+					<td>
+						<input type="radio" name="air_conditioning" value="No" id="ac_group_1" checked/>No	
+						<input type="radio" name="air_conditioning" value="Yes" id="ac_group_2"/>Yes			
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="smoking_allowed">Smoking? </label>
+					</td>
+					<td>					
+						<input type="radio" name="smoking_allowed" value="No" id="smoking_group_1" checked/>No	
+						<input type="radio" name="smoking_allowed" value="Yes" id="smoking_group_2"/>Yes		
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="description">Additional Description</label>
+					</td>
+					<td>
+						<textarea name = "description" id="id_description" row = "5" column = "20"></textarea>			
+					</td>
+				</tr>
+				<!-- END LISTING DETAIL-->
+			</table>
+			
+		</div>
+		<input type="submit" name="submit" value="Submit">		
+</form>
+		{% endblock content %}
+
+
