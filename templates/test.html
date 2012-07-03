@@ -1,6 +1,20 @@
-<html>
-  <head>
-	
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">  
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"> 
+
+	<head> 
+
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+		<title>Adding a Timepicker to jQuery UI Datepicker</title> 
+
+		<meta name="Description" content="jQuery Timepicker Addon.  Add a timepicker to your jQuery UI Datepicker.  With options to show only time, format time, and much more." />
+
+		<meta name="Keywords" content="jQuery, UI, datepicker, timepicker, datetime, time, format" />
+
+		
+
 		<style type="text/css"> 
 
 			body,img,p,h1,h2,h3,h4,h5,h6,form,table,td,ul,li,dl,dt,dd,pre,blockquote,fieldset,label{
@@ -37,8 +51,7 @@
 
 			.clear{ clear: both; }
 
-			#ui-datepicker-div, .ui-datepicker{ font-size: 80%; }
-			.ui-slider .ui-slider-handle { z-index: 1; }			
+			#ui-datepicker-div, .ui-datepicker{ font-size: 80%; }			
 
 		</style> 
 
@@ -57,27 +70,39 @@
 		<script type="text/javascript" src="../static/js/jquery-ui-timepicker-addon.js"></script>
 
 		<script type="text/javascript" src="../static/js/jquery-ui-sliderAccess.js"></script>	
-	<script type = "text/javascript" src="../static/js/jquery.ui.core.js"></script>
-	<script type = "text/javascript" src="../static/js/jquery.ui.widget.js"></script>
-	<script type = "text/javascript" src="../static/js/jquery.ui.mouse.js"></script>
-	<script type = "text/javascript" src="../static/js/jquery.ui.slider.js"></script>	
-  </head>
-  <body>	
-	<div class = "header">
-	{% block header %}
-    {% endblock header %}
-	</div>
-	<!-- END HEADER -->
-    <div class="wrapper">
-    {% block content %}
-    {% endblock content %}
-    </div>
-	<!-- END WRAPPER -->
-	<div class = "footer">
-	{% block footer %}
-    {% endblock footer %}
-	</div>
-	<!-- END FOOTER -->
+
+	</head> 
+
+	<body> 
+
+		<div class="wrapper">
+
 	
-  </body>
+
+		
+
+<!-- ============= example -->
+
+	<div class="example-container">
+
+		<p>Add a simple timepicker to jQuery UI's datepicker</p>
+
+		<div>
+
+	 		<input type="text" name="example1" id="example1" value="" />
+
+		</div>		
+
+	</div>
+
+
+
+	 	</div>
+
+		<script type="text/javascript">
+		$('#example1').datetimepicker();
+		</script>	
+	</body> 
+
 </html>
+

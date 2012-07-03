@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+<p> Welcome {{user.nickname()}}</p>
 <p> You can create listings <a href="/create">here.</a> </p>
 {% for listing in listings %}
 <p class="sticky taped" style="width: 250px;"> 
@@ -17,4 +18,5 @@
         <br />     
 {% endfor %}
 </p>
+<p> <a href="{{logout_url}}">Click to LogOut</a></p>
 {% endblock content %}

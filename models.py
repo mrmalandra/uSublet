@@ -1,4 +1,5 @@
 from google.appengine.ext import db
+#from django.contrib.auth.models import User, UserManager
 
 class SubletListing(db.Model):
     lister = db.StringProperty()    
@@ -14,3 +15,12 @@ class SubletListing(db.Model):
     air_conditioning = db.StringProperty()
     smoking_allowed = db.StringProperty()
     description = db.StringProperty(multiline=True)
+
+## Extending the User Profile to include more fields
+#class UserProfile(models.Model):
+#    user = models.ForeignKey(User,unique=True)
+#    nickname = models.CharField(max_length=50)
+#    email = models.CharField(max_length=50)
+#    school = models.CharField(max_length=50)
+    
+    

@@ -16,7 +16,7 @@
 						<label for="lister">What's your Name?</label>
 					</td>
 					<td>
-						<input type="text" name="lister" id="id_lister" required/>
+						<input type="text" name="lister" id="id_lister" value="{{user}}"/>
 					</td>					
 					<!--END USER ACCOUNT -->
 					<!-- LOCATION DETAIL-->
@@ -79,14 +79,14 @@
 				<tr>
 					<td>
 						<label for="number_of_rooms">Number of Rooms: </label>
-						<input type="text" name="number_of_rooms" id="id_number_of_rooms" style="border:0; color:#f6931f; font-weight:bold;" disabled = "disabled" value = "1" required/><br/>
+						<input type="text" name="number_of_rooms" id="id_number_of_rooms" style="border:0; color:#f6931f; font-weight:bold;" readonly="readonly" value = "1" required/><br/>
 						<div id="number_of_rooms_slider"></div>
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<label for="number_of_bathrooms">Number of Bathrooms: </label>
-						<input type="text" name="number_of_bathrooms" id="id_number_of_bathrooms" style="border:0; color:#f6931f; font-weight:bold;" disabled = "disabled" value = "1" required/><br/>
+						<input type="text" name="number_of_bathrooms" id="id_number_of_bathrooms" style="border:0; color:#f6931f; font-weight:bold;" readonly="readonly" value = "1" required/><br/>
 						<div id="number_of_bathrooms_slider"></div>
 					</td>
 				</tr>
@@ -131,6 +131,52 @@
 		</div>
 		<input type="submit" name="submit" value="Submit">		
 </form>
+<script type="text/javascript">	
+	function getFormattedDate(date) {
+		var day = date.getDate();
+		var month = date.getMonth() + 1;
+		var year = date.getFullYear().toString().slice(2);
+		return year + '-' + month + '-' + day;
+	}
+	$('#id_start_date').datepicker({
+		dateFormat: 'yy-mm-dd',
+		minDate: getFormattedDate(new Date())
+	});
+	$('#id_end_date').datepicker({
+		dateFormat: 'yy-mm-dd',
+		minDate: getFormattedDate(new Date())
+	});	
+</script>
+<script type = "text/javascript">		
+	$(function() {
+		$( "#number_of_rooms_slider" ).slider({
+			range:"min",
+			value:1,
+			min: 1,
+			max: 10,
+
+			slide: function( event, ui ) {
+				$( "#id_number_of_rooms" ).val( ui.value );
+			}
+		});
+		$( "#id_number_of_rooms" ).val( $( "#number_of_rooms_slider" ).slider( "value" ));
+	});
+	
+	$(function() {
+		$( "#number_of_bathrooms_slider" ).slider({
+			range:"min",
+			value:1,
+			min: 1,
+			max: 10,
+			step: .5,
+			slide: function( event, ui ) {
+				$( "#id_number_of_bathrooms" ).val( ui.value );
+			}
+		});
+		$( "#id_number_of_bathrooms" ).val( $( "#number_of_bathrooms_slider" ).slider( "value" ) );
+	});
+
+</script>
 		{% endblock content %}
 
 

@@ -4,6 +4,7 @@ import webapp2
 from datetime import datetime
 import unicodedata
 from google.appengine.ext import db
+from google.appengine.api import users
 
 from models import SubletListing
 
@@ -13,7 +14,6 @@ jinja_environment = \
 
 
 class BaseHandler(webapp2.RequestHandler):
-
     @webapp2.cached_property
     def jinja2(self):
         return jinja2.get_jinja2(app=self.app)
@@ -29,53 +29,54 @@ class BaseHandler(webapp2.RequestHandler):
 
 
 class MainPage(BaseHandler):
-
     def get(self):
-        listings = SubletListing.all()
-        self.render_template('index.html', {'listings': listings})
-
-
+        user = users.get_current_user()
+        if user:            
+            listings = SubletListing.gql("WHERE lister = :lister", lister=user.nickname())
+            self.render_template('index.html', {'listings': listings,'user': user,'logout_url': users.create_logout_url("/")})
+            
+        else:
+            self.redirect(users.create_login_url(self.request.uri))
+                
 class CreateListing(BaseHandler):
-
     def post(self):     
-        n = SubletListing(lister = self.request.get('lister'),
-                          street_name = unicodedata.normalize('NFKD', self.request.get('street_name')).encode('ascii','ignore'),
-                          city_name = unicodedata.normalize('NFKD', self.request.get('city_name')).encode('ascii','ignore'),
-                          state_name = unicodedata.normalize('NFKD', self.request.get('state_name')).encode('ascii','ignore'),
-                          start_date = datetime.strptime(unicodedata.normalize('NFKD', self.request.get('start_date')).encode('ascii','ignore'),'%Y-%m-%d').date(),
-                          end_date = datetime.strptime(unicodedata.normalize('NFKD', self.request.get('end_date')).encode('ascii','ignore'),'%Y-%m-%d').date(),
-                          price = float(unicodedata.normalize('NFKD', self.request.get('price')).encode('ascii','ignore').strip()),
-                          number_of_rooms = int(self.request.get('number_of_rooms').strip()) if self.request.get('number_of_rooms').isdigit() else 1,
-                          number_of_bathrooms = float(self.request.get('number_of_bathrooms').strip()) if self.request.get('number_of_bathrooms').isdigit() else 1.0,
-                          pets_allowed = self.request.get('pets_allowed'),
-                          air_conditioning = self.request.get('air_conditioning'),
-                          smoking_allowed = self.request.get('smoking_allowed'),
-                          description = self.request.get('description'))
+        n = SubletListing(lister = str(self.request.get('lister')),
+                          street_name = str(self.request.get('street_name')),
+                          city_name = str(self.request.get('city_name')),
+                          state_name = str(self.request.get('state_name')),
+                          start_date = datetime.strptime(str(self.request.get('start_date')),'%Y-%m-%d').date(),
+                          end_date = datetime.strptime(str(self.request.get('end_date')),'%Y-%m-%d').date(),
+                          price = float(str(self.request.get('price'))),
+                          number_of_rooms = int(str(self.request.get('number_of_rooms'))),
+                          number_of_bathrooms = float(str(self.request.get('number_of_bathrooms'))),
+                          pets_allowed = str(self.request.get('pets_allowed')),
+                          air_conditioning = str(self.request.get('air_conditioning')),
+                          smoking_allowed = str(self.request.get('smoking_allowed')),
+                          description = str(self.request.get('description')))
         n.put()
         return webapp2.redirect('/')
 
     def get(self):
-        self.render_template('create.html', {})
+        self.render_template('create.html', {'user': users.get_current_user().nickname()})
 
 
 class EditListing(BaseHandler):
-
     def post(self, listing_id):
         iden = int(listing_id)
         listing = db.get(db.Key.from_path('SubletListing', iden))
-        listing.lister = unicodedata.normalize('NFKD',self.request.get('lister')).encode('ascii','ignore')
-        listing.street_name = unicodedata.normalize('NFKD',self.request.get('street_name')).encode('ascii','ignore')
-        listing.city_name = unicodedata.normalize('NFKD',self.request.get('city_name')).encode('ascii','ignore')
-        listing.state_name = unicodedata.normalize('NFKD',self.request.get('state_name')).encode('ascii','ignore')
-        listing.start_date = datetime.strptime(unicodedata.normalize('NFKD', self.request.get('start_date')).encode('ascii','ignore'),'%Y-%m-%d').date()
-        listing.end_date = datetime.strptime(unicodedata.normalize('NFKD', self.request.get('end_date')).encode('ascii','ignore'),'%Y-%m-%d').date()
-        listing.price = float(self.request.get('price')) if self.request.get('price').isdigit() else 200.0
-        listing.number_of_rooms = int(self.request.get('number_of_rooms')) if self.request.get('number_of_rooms').isdigit() else 1
-        listing.number_of_bathrooms = float(self.request.get('number_of_bathrooms')) if self.request.get('number_of_bathrooms').isdigit() else 1.0
-        listing.pets_allowed = self.request.get('pets_allowed')
-        listing.air_conditioning = self.request.get('air_conditioning')
-        listing.smoking_allowed = self.request.get('smoking_allowed')
-        listing.description = self.request.get('description')
+        listing.lister = str(self.request.get('lister'))
+        listing.street_name = str(self.request.get('street_name'))
+        listing.city_name = str(self.request.get('city_name'))
+        listing.state_name = str(self.request.get('state_name'))
+        listing.start_date = datetime.strptime(str(self.request.get('start_date')),'%Y-%m-%d').date()
+        listing.end_date = datetime.strptime(str(self.request.get('end_date')),'%Y-%m-%d').date()
+        listing.price = float(str(self.request.get('price')))
+        listing.number_of_rooms = int(str(self.request.get('number_of_rooms')))
+        listing.number_of_bathrooms = float(str(self.request.get('number_of_bathrooms')))
+        listing.pets_allowed = str(self.request.get('pets_allowed'))
+        listing.air_conditioning = str(self.request.get('air_conditioning'))
+        listing.smoking_allowed = str(self.request.get('smoking_allowed'))
+        listing.description = str(self.request.get('description'))
         listing.put()
         return webapp2.redirect('/')
         
@@ -87,7 +88,6 @@ class EditListing(BaseHandler):
 
 
 class DeleteListing(BaseHandler):
-
     def get(self, listing_id):
         iden = int(listing_id)
         listing = db.get(db.Key.from_path('SubletListing', iden))

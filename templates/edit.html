@@ -80,14 +80,14 @@
 				<tr>
 					<td>
 						<label for="number_of_rooms">Number of Rooms: </label>
-						<input type="text" name="number_of_rooms" id="id_number_of_rooms" style="border:0; color:#f6931f; font-weight:bold;" value = "{{listing.number_of_rooms}}"required/>
+						<input type="text" name="number_of_rooms" id="id_number_of_rooms" style="border:0; color:#f6931f; font-weight:bold;" value = "{{listing.number_of_rooms}}" readonly="readonly" required/>
 						<div id="number_of_rooms_slider"></div>
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<label for="number_of_bathrooms">Number of Bathrooms: </label>
-						<input type="text" name="number_of_bathrooms" id="id_number_of_bathrooms" style="border:0; color:#f6931f; font-weight:bold;" value = "{{listing.number_of_bathrooms}}"required/>
+						<input type="text" name="number_of_bathrooms" id="id_number_of_bathrooms" style="border:0; color:#f6931f; font-weight:bold;" value = "{{listing.number_of_bathrooms}}" readonly="readonly" required/>
 						<div id="number_of_bathrooms_slider"></div>
 					</td>
 				</tr>
@@ -105,7 +105,7 @@
 					<td>
 						<label for="air_conditioning">Air Conditioning? </label>
 					</td>
-					<td>
+					<td>	
 						<input type="radio" name="air_conditioning" value="{{listing.air_conditioning}}" id="ac_group_1" checked/>{{listing.air_conditioning}}	
 						<span name="alt_air_conditioning" id="alt_id_air_conditioning"></span> 
 						<!--<input type="radio" name="air_conditioning" value="Yes" id="ac_group_2"/>Yes			-->
@@ -135,4 +135,53 @@
 		<a href ="/delete/{{ listing.key().id() }}">Delete Note</a>
 		<input type="submit" name="submit" value="Submit">		
 		</form>
+<script type="text/javascript">	
+	function getFormattedDate(date) {
+		var day = date.getDate();
+		var month = date.getMonth() + 1;
+		var year = date.getFullYear().toString().slice(2);
+		return year + '-' + month + '-' + day;
+	}
+	$('#id_start_date').datepicker({
+		value: {{listing.start_date}},
+		dateFormat: 'yy-mm-dd',
+		minDate: getFormattedDate(new Date())
+	});
+	$('#id_end_date').datepicker({
+		value: {{listing.end_date}},
+		dateFormat: 'yy-mm-dd',
+		minDate: getFormattedDate(new Date())
+	});	
+</script>
+		
+<script type = "text/javascript">		
+	$(function() {
+		$( "#number_of_rooms_slider" ).slider({
+			range:"min",
+			value:{{listing.number_of_rooms}},
+			min: 1,
+			max: 10,
+
+			slide: function( event, ui ) {
+				$( "#id_number_of_rooms" ).val( ui.value );
+			}
+		});
+		$( "#id_number_of_rooms" ).val( $( "#number_of_rooms_slider" ).slider( "value" ));
+	});
+	
+	$(function() {
+		$( "#number_of_bathrooms_slider" ).slider({
+			range:"min",
+			value:{{listing.number_of_bathrooms}},
+			min: 1,
+			max: 10,
+			step: .5,
+			slide: function( event, ui ) {
+				$( "#id_number_of_bathrooms" ).val( ui.value );
+			}
+		});
+		$( "#id_number_of_bathrooms" ).val( $( "#number_of_bathrooms_slider" ).slider( "value" ) );
+	});
+
+</script>
 {% endblock content %}
